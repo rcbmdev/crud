@@ -17,3 +17,12 @@ def insere_dados(nome, ano, nota):
     )
     conexao.commit()
     conexao.close()
+
+# 3- Lista Dados
+def obter_dados():
+    conexao = conecta_bd()
+    cursor = conexao.cursor()
+    cursor.execute("SELECT * FROM filmes")
+    dados = cursor.fetchall()
+    cursor.close()
+    return dados

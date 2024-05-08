@@ -11,3 +11,7 @@ nota = st.slider('Nota do Filme', min_value=0.0, max_value=10.0)
 if st.button('Adicionar'):
     dados.insere_dados(nome, ano, nota)
     st.success("Filme cadastrado")
+    
+filmes = dados.obter_dados()
+st.header("Lista de Filmes")
+st.table(filmes)
