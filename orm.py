@@ -13,3 +13,34 @@ class Filme(Base):
     nota = Column(Float, nullable=False)
     
 Base.metadata.create_all(engine)
+
+# Inserir Dados
+def adiciona_filme(nome, ano, nota):
+    Session = sessionmaker(bind=engine)
+    session = Session()
+    filme = Filme(nome=nome, ano=ano, nota=nota)
+    session.add(filme)
+    session.commit()
+    session.close()
+# adiciona_filme("Mario", 2022, 9.5)
+# adiciona_filme("Teste", 2020, 8.5)
+
+def atualiza_filme(id, nome=None, ano=None, nota=None):
+    Session = sessionmaker(bind=engine)
+    session = Session()
+    filme = session.query(Filme).filter_by(id=id).first()
+    filme.nome = nome
+    filme.ano = ano
+    filme.nota = nota
+    session.commit()
+    session.close()
+# atualiza_filme(1, "Novo filme", 2019, 9.2)
+def exclui_filme(id):
+    Session = sessionmaker(bind=engine)
+    session = Session()
+    filme = session.query(Filme).filter_by(id=id).first()
+    session.delete(filme)
+    session.commit()
+    session.close()
+
+exclui_filme(1)
