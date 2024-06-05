@@ -29,18 +29,23 @@ def atualiza_filme(id, nome=None, ano=None, nota=None):
     Session = sessionmaker(bind=engine)
     session = Session()
     filme = session.query(Filme).filter_by(id=id).first()
-    filme.nome = nome
-    filme.ano = ano
-    filme.nota = nota
-    session.commit()
+    if filme:
+        if nome is not None:
+            filme.nome = nome
+        if ano is not None:
+            filme.ano = ano
+        if nota is not None:
+            filme.nota = nota
+        session.commit()
     session.close()
 # atualiza_filme(1, "Novo filme", 2019, 9.2)
 def exclui_filme(id):
     Session = sessionmaker(bind=engine)
     session = Session()
     filme = session.query(Filme).filter_by(id=id).first()
-    session.delete(filme)
+    if filme:
+        session.delete(filme)
     session.commit()
     session.close()
 
-exclui_filme(1)
+# exclui_filme(1)
